@@ -23,6 +23,10 @@
       <button class="btn btn-primary btn-block">Show bookings</button>
     </form>
     <p class="error" id="error" hidden></p>
+    <div id="tools" hidden style="margin:0 0 1rem">
+      <button class="btn btn-light" id="square-check">Check Square connection</button>
+      <pre id="square-result" hidden style="white-space:pre-wrap;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem;font-size:.85rem"></pre>
+    </div>
     <div class="scroll"><table id="table" hidden>
       <thead><tr><th>Dates</th><th>Guest</th><th>Total</th><th>Status</th><th></th></tr></thead>
       <tbody></tbody>
@@ -42,6 +46,7 @@
       err("");
       sessionStorage.setItem("adminKey", key);
       document.getElementById("login").hidden = true;
+      document.getElementById("tools").hidden = false;
       const rows = data.bookings.map((b) => {
         const expired = b.status === "pending" && new Date(b.holdUntil) < new Date();
         const status = expired ? "abandoned" : b.status;
@@ -65,6 +70,25 @@
       const res = await fetch("/api/admin/cancel", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, key }) });
       if (!res.ok) return err((await res.json()).error);
       load();
+    });
+    document.getElementById("square-check").addEventListener("click", async () => {
+      const out = document.getElementById("square-result");
+      out.hidden = false;
+      out.textContent = "Checking…";
+      const r = await (await fetch("/api/admin/square-check", { headers: { "x-admin-key": key } })).json();
+      const lines = [
+        r.ok ? "✅ Square is set up correctly." : "❌ Square needs attention:",
+        `Mode: ${r.environment}`,
+        `Access token set: ${r.accessTokenSet ? "yes" : "NO"}${r.tokenWorks === false ? " (but Square rejected it)" : ""}`,
+        `Location ID set: ${r.locationIdSet ? "yes" : "NO"}${r.locationIdSet && r.tokenWorks && !r.locationFound ? " (but it doesn't match any of your locations)" : ""}`,
+        r.locationFound ? `Location active: ${r.locationActive ? "yes" : "NO"} · can take cards: ${r.canTakeCards ? "yes" : "NO"}` : null,
+        `Webhook signature key set: ${r.webhookKeySet ? "yes" : "NO"}`,
+        `Airbnb calendar set: ${r.airbnbCalendarSet ? "yes" : "NO"}`,
+        r.hint ? `\nTip: ${r.hint}` : null,
+        r.squareError ? `\nSquare said: ${r.squareError}` : null,
+        r.locations?.length ? `\nYour Square locations:\n${r.locations.map((l) => `  ${l.id}  ${l.name} (${l.status})`).join("\n")}` : null,
+      ].filter(Boolean);
+      out.textContent = lines.join("\n");
     });
     if (key) load();
   </script>
