@@ -10,8 +10,7 @@ export const listing = {
 };
 
 export const pricing = {
-  // TODO: set your real rates. Defaults are placeholders.
-  nightlyRate: 275,
+  nightlyRate: 350,
   // Optional per-night overrides, e.g. holidays or graduation weekends.
   // Keys are YYYY-MM-DD (the night of), values are the nightly rate.
   nightlyOverrides: {},

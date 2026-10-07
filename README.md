@@ -77,7 +77,8 @@ Airbnb → **Calendar** → your listing → **Availability** → **Connect cale
 ### 5. Set your prices
 Edit `netlify/lib/config.mjs` (on GitHub, the pencil icon works fine): `nightlyRate`,
 `weekendRate`, `cleaningFee`, `minNights`, discounts, holiday `nightlyOverrides`, and check-in
-times. Committing redeploys the site automatically. **The rates there now are placeholders.**
+times. Committing redeploys the site automatically. The nightly rate is $350; the cleaning
+fee ($150) and 2-night minimum are defaults, so adjust them if they differ from Airbnb.
 
 ## Day-to-day
 
