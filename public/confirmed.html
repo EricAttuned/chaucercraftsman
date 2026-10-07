@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booking confirmed · The Chaucer Craftsman</title>
+  <meta name="robots" content="noindex">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header"><div class="wrap header-inner"><a class="brand" href="/">The Chaucer Craftsman</a></div></header>
+  <main class="wrap">
+    <div class="confirm">
+      <img src="/images/thumb/living-room-1.jpg" alt="">
+      <h1 id="title">Checking your payment…</h1>
+      <div id="body"><p class="muted">One moment while we confirm with Square.</p></div>
+    </div>
+  </main>
+  <script type="module">
+    const id = new URLSearchParams(location.search).get("booking");
+    const fmt = (s) => new Date(s + "T00:00:00Z").toLocaleDateString("en-US", { weekday: "short", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+    const money = (c) => (c / 100).toLocaleString("en-US", { style: "currency", currency: "USD" });
+    const title = document.getElementById("title"), body = document.getElementById("body");
+
+    async function check(attempt = 0) {
+      if (!id) { title.textContent = "Booking not found"; body.innerHTML = '<p><a href="/">Back to the home page</a></p>'; return; }
+      const res = await fetch("/api/booking-status?booking=" + encodeURIComponent(id));
+      const b = await res.json();
+      if (res.ok && b.status === "confirmed") {
+        title.textContent = `You're booked, ${b.name}!`;
+        body.innerHTML = `
+          <p><strong>${fmt(b.checkIn)}</strong> → <strong>${fmt(b.checkOut)}</strong><br>${esc(b.guests)} guest${b.guests == 1 ? "" : "s"} · ${money(b.total)} paid</p>
+          <p>Square has emailed your receipt. Eric will be in touch before your trip with the address and check-in instructions.</p>
+          <p><a href="/">Back to the home page</a></p>`;
+      } else if (res.ok && b.status === "pending" && attempt < 10) {
+        setTimeout(() => check(attempt + 1), 3000);
+      } else if (res.ok && b.status === "pending") {
+        title.textContent = "Payment still processing";
+        body.innerHTML = "<p>We haven't received confirmation from Square yet. If you completed payment, you'll get a receipt by email shortly and your booking will be confirmed automatically. Refresh this page in a minute to check.</p>";
+      } else {
+        title.textContent = "This booking wasn't completed";
+        body.innerHTML = '<p>Your payment didn\'t go through or the 30-minute hold expired, so the dates were released. <a href="/#book">Try booking again</a>.</p>';
+      }
+    }
+    check();
+  </script>
+</body>
+</html>
