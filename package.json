@@ -1,0 +1,14 @@
+{
+  "name": "chaucer-craftsman",
+  "private": true,
+  "type": "module",
+  "description": "Direct-booking site for the Chaucer Craftsman (Poets Corner, Berkeley)",
+  "scripts": {
+    "dev": "netlify dev",
+    "test": "node --test test/*.test.mjs",
+    "preview": "node scripts/local-server.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.3"
+  }
+}

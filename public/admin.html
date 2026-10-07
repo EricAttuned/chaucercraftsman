@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Direct bookings · Admin</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; background: var(--surface); }
+    th, td { text-align: left; padding: .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .tag { font-size: .75rem; padding: .1rem .5rem; border-radius: 999px; background: var(--accent-soft); }
+    .tag.confirmed { background: #dcebdf; } .tag.cancelled { background: #eee; }
+    .warn { color: var(--danger); font-weight: 600; }
+    .scroll { overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <main class="wrap" style="padding:2rem 16px">
+    <h1>Direct bookings</h1>
+    <form id="login" class="card" style="position:static;max-width:420px">
+      <label class="field">Admin key<input type="password" name="key" required></label>
+      <button class="btn btn-primary btn-block">Show bookings</button>
+    </form>
+    <p class="error" id="error" hidden></p>
+    <div class="scroll"><table id="table" hidden>
+      <thead><tr><th>Dates</th><th>Guest</th><th>Total</th><th>Status</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <p class="muted" style="font-size:.85rem">To cancel: refund the guest in your Square dashboard first, then click Cancel here to free up the dates.</p>
+  </main>
+  <script type="module">
+    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+    const money = (c) => (c / 100).toLocaleString("en-US", { style: "currency", currency: "USD" });
+    let key = sessionStorage.getItem("adminKey") || "";
+    const err = (m) => { const e = document.getElementById("error"); e.textContent = m; e.hidden = !m; };
+
+    async function load() {
+      const res = await fetch("/api/admin/bookings", { headers: { "x-admin-key": key } });
+      const data = await res.json();
+      if (!res.ok) return err(data.error);
+      err("");
+      sessionStorage.setItem("adminKey", key);
+      document.getElementById("login").hidden = true;
+      const rows = data.bookings.map((b) => {
+        const expired = b.status === "pending" && new Date(b.holdUntil) < new Date();
+        const status = expired ? "abandoned" : b.status;
+        return `<tr>
+          <td>${esc(b.checkIn)} → ${esc(b.checkOut)}<br><span class="muted">${b.quote?.nights ?? ""} nights · ${esc(b.guests)} guests</span></td>
+          <td>${esc(b.name)}<br><a href="mailto:${esc(b.email)}">${esc(b.email)}</a><br>${esc(b.phone)}${b.message ? `<br><em>${esc(b.message)}</em>` : ""}</td>
+          <td>${money(b.total)}</td>
+          <td><span class="tag ${status}">${status}</span>${b.conflict ? '<br><span class="warn">Overlaps another booking!</span>' : ""}</td>
+          <td>${b.status === "confirmed" ? `<button class="link" data-cancel="${esc(b.id)}">Cancel</button>` : ""}</td>
+        </tr>`;
+      });
+      const t = document.getElementById("table");
+      t.querySelector("tbody").innerHTML = rows.join("") || '<tr><td colspan="5" class="muted">No direct bookings yet.</td></tr>';
+      t.hidden = false;
+    }
+
+    document.getElementById("login").addEventListener("submit", (e) => { e.preventDefault(); key = new FormData(e.target).get("key"); load(); });
+    document.getElementById("table").addEventListener("click", async (e) => {
+      const id = e.target.dataset.cancel;
+      if (!id || !confirm("Cancel this booking and release its dates? Refund the guest in Square separately.")) return;
+      const res = await fetch("/api/admin/cancel", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, key }) });
+      if (!res.ok) return err((await res.json()).error);
+      load();
+    });
+    if (key) load();
+  </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+[
+ {
+  "file": "living-room-1.jpg",
+  "room": "Living room",
+  "alt": "Sunny living room with a big sectional",
+  "w": 1800,
+  "h": 1195
+ },
+ {
+  "file": "living-room-2.jpg",
+  "room": "Living room",
+  "alt": "Living room looking toward the dining room",
+  "w": 1800,
+  "h": 1196
+ },
+ {
+  "file": "living-room-3.jpg",
+  "room": "Living room",
+  "alt": "Living room and front entry",
+  "w": 1800,
+  "h": 1201
+ },
+ {
+  "file": "kitchen-1.jpg",
+  "room": "Kitchen",
+  "alt": "Kitchen with gas range",
+  "w": 1800,
+  "h": 1187
+ },
+ {
+  "file": "kitchen-2.jpg",
+  "room": "Kitchen",
+  "alt": "Kitchen and island",
+  "w": 1800,
+  "h": 1194
+ },
+ {
+  "file": "kitchen-3.jpg",
+  "room": "Kitchen",
+  "alt": "Kitchen island looking toward the dining room",
+  "w": 1800,
+  "h": 1196
+ },
+ {
+  "file": "kitchen-4.jpg",
+  "room": "Kitchen",
+  "alt": "Open kitchen and dining room",
+  "w": 1800,
+  "h": 1195
+ },
+ {
+  "file": "kitchen-5.jpg",
+  "room": "Kitchen",
+  "alt": "Kitchen coffee corner",
+  "w": 1800,
+  "h": 1193
+ },
+ {
+  "file": "dining-1.jpg",
+  "room": "Dining room",
+  "alt": "Dining room",
+  "w": 1800,
+  "h": 1193
+ },
+ {
+  "file": "dining-2.jpg",
+  "room": "Dining room",
+  "alt": "Dining table looking into the kitchen",
+  "w": 1800,
+  "h": 1195
+ },
+ {
+  "file": "dining-3.jpg",
+  "room": "Dining room",
+  "alt": "Dining room, kitchen and living room",
+  "w": 1800,
+  "h": 1190
+ },
+ {
+  "file": "bedroom-1-a.jpg",
+  "room": "Bedroom 1",
+  "alt": "Main bedroom with king bed",
+  "w": 1800,
+  "h": 1198
+ },
+ {
+  "file": "bedroom-1-b.jpg",
+  "room": "Bedroom 1",
+  "alt": "Main bedroom",
+  "w": 1800,
+  "h": 1197
+ },
+ {
+  "file": "bedroom-1-c.jpg",
+  "room": "Bedroom 1",
+  "alt": "Main bedroom",
+  "w": 1800,
+  "h": 1194
+ },
+ {
+  "file": "bedroom-1-d.jpg",
+  "room": "Bedroom 1",
+  "alt": "Main bedroom closet and dresser",
+  "w": 1800,
+  "h": 1191
+ },
+ {
+  "file": "bedroom-1-e.jpg",
+  "room": "Bedroom 1",
+  "alt": "Main bedroom, door to the ensuite",
+  "w": 1195,
+  "h": 1800
+ },
+ {
+  "file": "bath-1-a.jpg",
+  "room": "Bathrooms",
+  "alt": "Ensuite bathroom with double vanity",
+  "w": 1800,
+  "h": 1194
+ },
+ {
+  "file": "bath-1-b.jpg",
+  "room": "Bathrooms",
+  "alt": "Ensuite bathroom",
+  "w": 1800,
+  "h": 1198
+ },
+ {
+  "file": "bath-1-c.jpg",
+  "room": "Bathrooms",
+  "alt": "Ensuite walk-in shower",
+  "w": 1198,
+  "h": 1800
+ },
+ {
+  "file": "bedroom-2-a.jpg",
+  "room": "Bedroom 2",
+  "alt": "Kids' bedroom with crib",
+  "w": 1800,
+  "h": 1198
+ },
+ {
+  "file": "bedroom-2-b.jpg",
+  "room": "Bedroom 2",
+  "alt": "Kids' bedroom",
+  "w": 1800,
+  "h": 1195
+ },
+ {
+  "file": "bedroom-2-c.jpg",
+  "room": "Bedroom 2",
+  "alt": "Kids' bedroom",
+  "w": 1800,
+  "h": 1200
+ },
+ {
+  "file": "bedroom-2-d.jpg",
+  "room": "Bedroom 2",
+  "alt": "Kids' bedroom set up with a twin bed",
+  "w": 1800,
+  "h": 1008
+ },
+ {
+  "file": "bedroom-2-e.jpg",
+  "room": "Bedroom 2",
+  "alt": "Kids' bedroom bookshelves",
+  "w": 1800,
+  "h": 1003
+ },
+ {
+  "file": "bedroom-2-f.jpg",
+  "room": "Bedroom 2",
+  "alt": "Crib in the kids' bedroom",
+  "w": 1800,
+  "h": 1006
+ },
+ {
+  "file": "bath-2-a.jpg",
+  "room": "Bathrooms",
+  "alt": "Second full bathroom with tub and shower",
+  "w": 1800,
+  "h": 1007
+ },
+ {
+  "file": "bath-2-b.jpg",
+  "room": "Bathrooms",
+  "alt": "Second bathroom with washer",
+  "w": 1800,
+  "h": 1005
+ },
+ {
+  "file": "half-bath-a.jpg",
+  "room": "Bathrooms",
+  "alt": "Downstairs half bath",
+  "w": 1800,
+  "h": 1014
+ },
+ {
+  "file": "half-bath-b.jpg",
+  "room": "Bathrooms",
+  "alt": "Downstairs half bath",
+  "w": 1800,
+  "h": 1010
+ },
+ {
+  "file": "bonus-room-a.jpg",
+  "room": "Bonus room",
+  "alt": "Downstairs bonus room / playroom",
+  "w": 1800,
+  "h": 1007
+ },
+ {
+  "file": "bonus-room-b.jpg",
+  "room": "Bonus room",
+  "alt": "Bonus room with high chair",
+  "w": 1800,
+  "h": 1005
+ },
+ {
+  "file": "yard-a.jpg",
+  "room": "Patio & yard",
+  "alt": "Shared patio and yard",
+  "w": 1800,
+  "h": 1194
+ },
+ {
+  "file": "yard-b.jpg",
+  "room": "Patio & yard",
+  "alt": "Patio seating with umbrella",
+  "w": 1800,
+  "h": 1340
+ },
+ {
+  "file": "yard-c.jpg",
+  "room": "Patio & yard",
+  "alt": "Deck and string lights",
+  "w": 1196,
+  "h": 1800
+ },
+ {
+  "file": "yard-d.jpg",
+  "room": "Patio & yard",
+  "alt": "Shared yard; the back home is occupied by long-term tenants",
+  "w": 1800,
+  "h": 1191
+ }
+]
