@@ -24,7 +24,7 @@ export async function squareFetch(path, { method = "GET", body } = {}) {
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const detail = data.errors?.map((e) => e.detail || e.code).join("; ") || res.statusText;
+    const detail = data.errors?.map((e) => [e.code, e.detail].filter(Boolean).join(": ")).join("; ") || res.statusText;
     throw new Error(`Square ${method} ${path} failed: ${detail}`);
   }
   return data;
